@@ -1,0 +1,28 @@
+# python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg
+*.egg-info/
+
+# virtual env
+.venv/
+env/
+venv/
+
+# jupyter & logs
+.ipynb_checkpoints/
+logs/
+
+# output artifacts
+results/
+*.joblib
+*.json
+
+# OS files
+.DS_Store
+
+# credentials
+.env
+credentials.json

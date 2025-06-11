@@ -1,0 +1,61 @@
+version: '3.8'
+
+services:
+  airflow-init:
+    build:
+      context: ./airflow
+      dockerfile: airflow.Dockerfile
+    entrypoint: /entrypoint.sh
+    env_file: .env
+    environment:
+      - AIRFLOW__CORE__EXECUTOR=LocalExecutor
+      - AIRFLOW__DATABASE__SQL_ALCHEMY_CONN=postgresql+psycopg2://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
+      - PYTHONPATH=/opt/airflow
+    volumes:
+      - ./airflow/dags:/opt/airflow/dags
+      - ./airflow/scripts:/opt/airflow/scripts
+      - ./.env:/opt/airflow/.env
+    depends_on:
+      - postgres
+    restart: on-failure
+
+  airflow-webserver:
+    build:
+      context: ./airflow
+      dockerfile: airflow.Dockerfile
+    command: webserver
+    ports:
+      - "8080:8080"
+    env_file: .env
+    environment:
+      - AIRFLOW__CORE__EXECUTOR=LocalExecutor
+      - AIRFLOW__DATABASE__SQL_ALCHEMY_CONN=postgresql+psycopg2://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
+      - PYTHONPATH=/opt/airflow
+    depends_on:
+      - airflow-init
+    volumes:
+      - ./airflow/dags:/opt/airflow/dags
+      - ./airflow/scripts:/opt/airflow/scripts
+      - ./.env:/opt/airflow/.env
+    restart: always
+
+  airflow-scheduler:
+    build:
+      context: ./airflow
+      dockerfile: airflow.Dockerfile
+    command: scheduler
+    env_file: .env
+    environment:
+      - AIRFLOW__CORE__EXECUTOR=LocalExecutor
+      - AIRFLOW__DATABASE__SQL_ALCHEMY_CONN=postgresql+psycopg2://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
+      - PYTHONPATH=/opt/airflow
+    depends_on:
+      - airflow-init
+    volumes:
+      - ./airflow/dags:/opt/airflow/dags
+      - ./airflow/scripts:/opt/airflow/scripts
+      - ./.env:/opt/airflow/.env
+    restart: always
+
+volumes:
+  pg_data:
