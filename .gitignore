@@ -10,19 +10,22 @@ __pycache__/
 .venv/
 env/
 venv/
+.vscode/
 
 # jupyter & logs
 .ipynb_checkpoints/
-logs/
+logs/*
+!logs/.gitkeep
 
-# output artifacts
-results/
+# artifacts
+results/*
+!results/.gitkeep
 *.joblib
 *.json
+*.csv
 
 # OS files
 .DS_Store
 
 # credentials
 .env
-credentials.json

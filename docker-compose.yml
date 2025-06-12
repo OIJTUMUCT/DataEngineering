@@ -1,6 +1,20 @@
-version: '3.8'
-
 services:
+  postgres:
+    image: postgres:15
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+      - ./postgres/conf/postgres.conf:/etc/postgresql/postgresql.conf
+      - ./postgres/conf/pg_hba.conf:/etc/postgresql/pg_hba.conf
+    command: postgres -c config_file=/etc/postgresql/postgresql.conf
+    restart: always
+
+
   airflow-init:
     build:
       context: ./airflow
@@ -11,10 +25,16 @@ services:
       - AIRFLOW__CORE__EXECUTOR=LocalExecutor
       - AIRFLOW__DATABASE__SQL_ALCHEMY_CONN=postgresql+psycopg2://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
       - PYTHONPATH=/opt/airflow
+      - AIRFLOW__WEBSERVER__SECRET_KEY=${AIRFLOW__WEBSERVER__SECRET_KEY}
+      - AIRFLOW__LOGGING__REMOTE_LOGGING=${AIRFLOW__LOGGING__REMOTE_LOGGING}
     volumes:
       - ./airflow/dags:/opt/airflow/dags
-      - ./airflow/scripts:/opt/airflow/scripts
+      - ./airflow/logs:/opt/airflow/logs
+      - ./airflow/etl:/opt/airflow/etl
+      - ./airflow/utils:/opt/airflow/utils
       - ./.env:/opt/airflow/.env
+      - ./airflow/data:/opt/airflow/data
+      - ./secrets:/opt/airflow/secrets
     depends_on:
       - postgres
     restart: on-failure
@@ -31,12 +51,18 @@ services:
       - AIRFLOW__CORE__EXECUTOR=LocalExecutor
       - AIRFLOW__DATABASE__SQL_ALCHEMY_CONN=postgresql+psycopg2://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
       - PYTHONPATH=/opt/airflow
+      - AIRFLOW__WEBSERVER__SECRET_KEY=${AIRFLOW__WEBSERVER__SECRET_KEY}
+      - AIRFLOW__LOGGING__REMOTE_LOGGING=${AIRFLOW__LOGGING__REMOTE_LOGGING}
     depends_on:
       - airflow-init
     volumes:
       - ./airflow/dags:/opt/airflow/dags
-      - ./airflow/scripts:/opt/airflow/scripts
+      - ./airflow/logs:/opt/airflow/logs
+      - ./airflow/etl:/opt/airflow/etl
+      - ./airflow/utils:/opt/airflow/utils
       - ./.env:/opt/airflow/.env
+      - ./airflow/data:/opt/airflow/data
+      - ./secrets:/opt/airflow/secrets
     restart: always
 
   airflow-scheduler:
@@ -49,12 +75,18 @@ services:
       - AIRFLOW__CORE__EXECUTOR=LocalExecutor
       - AIRFLOW__DATABASE__SQL_ALCHEMY_CONN=postgresql+psycopg2://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
       - PYTHONPATH=/opt/airflow
+      - AIRFLOW__WEBSERVER__SECRET_KEY=${AIRFLOW__WEBSERVER__SECRET_KEY}
+      - AIRFLOW__LOGGING__REMOTE_LOGGING=${AIRFLOW__LOGGING__REMOTE_LOGGING}
     depends_on:
       - airflow-init
     volumes:
       - ./airflow/dags:/opt/airflow/dags
-      - ./airflow/scripts:/opt/airflow/scripts
+      - ./airflow/logs:/opt/airflow/logs
+      - ./airflow/etl:/opt/airflow/etl
+      - ./airflow/utils:/opt/airflow/utils
+      - ./airflow/data:/opt/airflow/data
       - ./.env:/opt/airflow/.env
+      - ./secrets:/opt/airflow/secrets
     restart: always
 
 volumes:
