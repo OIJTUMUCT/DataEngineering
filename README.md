@@ -65,5 +65,71 @@ https://drive.google.com/drive/folders/1dN_kiXEhOI4ilksON24Azc7b3--pUlgH?usp=sha
 <img width="1294" alt="image" src="https://github.com/user-attachments/assets/4cafde7a-a59d-48b5-a396-cef08d8fe214" />
 <img width="1707" alt="image" src="https://github.com/user-attachments/assets/455d4b14-8076-4df6-a781-080f13e356ee" />
 
+## Makefile команды
+### Установка зависимостей
+```
+make install-requirements
+```
+Устанавливает зависимости из test/requirements.txt. Используется для локального запуска скриптов вне Airflow. Зависимости устанавливаются в активную виртуальную среду (.venv, miniconda)
 
+### Управление контейнерами
+```
+make up
+```
+Запускает все контейнеры Airflow (init, webserver, scheduler, triggerer, postgres) + Prometheus (statsd-exporter) + Grafana.
+
+```
+make down
+```
+Останавливает и удаляет все контейнеры.
+
+### Просмотр логов
+```
+make logs
+```
+Показывает последние 100 строк логов всех сервисов.
+
+```
+make logs-webserver
+make logs-scheduler
+make logs-triggerer
+```
+Выводят логи отдельных сервисов Airflow: webserver, scheduler, triggerer.
+
+### Локальное выполнение шагов пайплайна
+Каждая команда запускает соответствующий скрипт без Airflow, напрямую из Python.
+```
+make local-load
+```
+Загружает датасет BreastCancer.csv из интернета и сохраняет в airflow/data/raw.csv.
+
+```
+make local-preprocess
+```
+Предобработка данных: удаление пропусков, масштабирование признаков, разбиение на train/test, сохранение в .joblib.
+
+```
+make local-train
+```
+Обучает модель LogisticRegression на подготовленных данных. Сохраняет модель в airflow/results/model.joblib.
+
+```
+make local-evaluate
+```
+Оценивает модель на тестовой выборке. Сохраняет метрики (Accuracy, Precision, Recall, F1) в airflow/results/metrics.json.
+
+```
+make local-upload
+```
+Загружает модель и метрики в Google Drive, используя drive_sa.json и GDRIVE_FOLDER_ID. Также сохраняет копии в airflow/uploaded.
+
+```
+make local-test-all
+```
+Полный прогон всех этапов пайплайна без Airflow:
+- Загрузка данных
+- Предобработка
+- Обучение
+- Оценка
+- Выгрузка
 
