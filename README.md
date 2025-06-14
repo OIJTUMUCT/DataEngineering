@@ -54,7 +54,7 @@ https://drive.google.com/drive/folders/1dN_kiXEhOI4ilksON24Azc7b3--pUlgH?usp=sha
 
 ---
 
-## Prometeus
+## Prometheus
 <img width="1719" alt="image" src="https://github.com/user-attachments/assets/e4da1917-8f11-495f-bb69-c0cde472be40" />
 
 ## Grafana
