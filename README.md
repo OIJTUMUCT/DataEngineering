@@ -20,7 +20,7 @@
 
 Они сохраняются в папке results/ (backup в upload/), а затем автоматически загружаются в облачное хранилище.
 
-⸻
+---
 
 ### Как реализована авторизация
 
@@ -28,7 +28,7 @@
 - drive_sa.json — ключ сервисного аккаунта (JSON), хранится в папке secrets/
 - Авторизация происходит через библиотеку google-auth и google-api-python-client
 
-⸻
+---
 
 ### Необходимые переменные окружения
 - GDRIVE_FOLDER_ID — ID папки на Google Drive, куда будет производиться выгрузка.
@@ -37,7 +37,7 @@
 Пример в .env:
 GOOGLE_APPLICATION_CREDENTIALS="/opt/airflow/secrets/drive_sa.json"
 
-⸻
+---
 
 ### Как работает загрузка
 
@@ -48,7 +48,7 @@ GOOGLE_APPLICATION_CREDENTIALS="/opt/airflow/secrets/drive_sa.json"
 - Загружает в неё model.joblib и metrics.json
 - Логирует результат с помощью utils/logger.py
 
-⸻
+---
 
 ## Prometeus
 <img width="1719" alt="image" src="https://github.com/user-attachments/assets/e4da1917-8f11-495f-bb69-c0cde472be40" />
