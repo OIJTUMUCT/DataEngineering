@@ -4,10 +4,10 @@
 Разработать и автоматизировать ETL-процесс для построения модели машинного обучения, диагностирующей рак молочной железы, с использованием Apache Airflow и Python.
 
 ## Описание данных
-Источник: Breast Cancer Wisconsin Diagnostic Dataset
-Формат: CSV
-Ссылка: https://raw.githubusercontent.com/selva86/datasets/master/BreastCancer.csv
-Целевая переменная: Class (доброкачественная / злокачественная опухоль)
+- Источник: Breast Cancer Wisconsin Diagnostic Dataset
+- Формат: CSV
+- Ссылка: https://raw.githubusercontent.com/selva86/datasets/master/BreastCancer.csv
+- Целевая переменная: Class (доброкачественная / злокачественная опухоль)
 
 ##  Архитектура пайплайна
 
