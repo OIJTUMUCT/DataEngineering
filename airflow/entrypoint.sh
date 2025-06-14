@@ -35,7 +35,7 @@ done
 echo "Список DAG'ов:"
 airflow dags list
 
-echo "Безопасная разблокировка DAG-ов (через Python)..."
+echo "Безопасная разблокировка DAG-ов..."
 airflow dags list --output json | python3 -c '
 import sys, json, subprocess
 dags = json.load(sys.stdin)

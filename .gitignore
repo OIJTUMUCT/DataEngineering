@@ -14,11 +14,11 @@ venv/
 
 # jupyter & logs
 .ipynb_checkpoints/
-logs/*
+airflow/logs/*
 !logs/.gitkeep
 
 # artifacts
-results/*
+airflow/results/*
 !results/.gitkeep
 *.joblib
 *.json
