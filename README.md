@@ -23,7 +23,7 @@ AIRFLOW__WEBSERVER__SECRET_KEY=myultrasecretkey123
 # Путь до JSON-файла сервисного аккаунта Google (для загрузки результатов)
 GOOGLE_APPLICATION_CREDENTIALS=/opt/airflow/secrets/credentials.json
 
-# ID папки Google Drive, куда выгружаются артефакты модели
+# ID папки Google Drive, куда выгружаются артефакты модели (замените на собственное)
 GDRIVE_FOLDER_ID=1dN_kiXE90a94alksON24793773--plkad
 ```
 
