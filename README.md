@@ -54,4 +54,5 @@ GOOGLE_APPLICATION_CREDENTIALS="/opt/airflow/secrets/drive_sa.json"
 <img width="1719" alt="image" src="https://github.com/user-attachments/assets/e4da1917-8f11-495f-bb69-c0cde472be40" />
 
 ## Grafana
-<img width="1719" alt="image" src="https://github.com/user-attachments/assets/6fd42bb2-0a02-4c0a-a74c-7dea4448d09e" />
+<img width="1728" alt="image" src="https://github.com/user-attachments/assets/b67f8fca-f34c-4a8a-963c-94b3ca5dba7d" />
+
