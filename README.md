@@ -9,6 +9,24 @@
 - Ссылка: https://raw.githubusercontent.com/selva86/datasets/master/BreastCancer.csv
 - Целевая переменная: Class (доброкачественная / злокачественная опухоль)
 
+## Для начала работы
+После копирования репозитория, создайте файл .env и заполните его в соотвествии с шаблоном:
+```env
+# Данные для PostgreSQL (используется Airflow)
+POSTGRES_USER=airflow
+POSTGRES_PASSWORD=airflow
+POSTGRES_DB=airflow
+
+# Ключ для Web UI Airflow (замените на собственный)
+AIRFLOW__WEBSERVER__SECRET_KEY=myultrasecretkey123
+
+# Путь до JSON-файла сервисного аккаунта Google (для загрузки результатов)
+GOOGLE_APPLICATION_CREDENTIALS=/opt/airflow/secrets/credentials.json
+
+# ID папки Google Drive, куда выгружаются артефакты модели
+GDRIVE_FOLDER_ID=1dN_kiXE90a94alksON24793773--plkad
+```
+
 ##  Архитектура пайплайна
 
 
@@ -32,7 +50,7 @@
 
 ### Необходимые переменные окружения
 - GDRIVE_FOLDER_ID — ID папки на Google Drive, куда будет производиться выгрузка.
-Пример: 1bn_ki67Eh904ilksON78Azc7b3--pYljk
+Пример: 1dN_kiXE90a94alksON24793773--plkad (предварительно для сервисного аккаунта необходимо предоставить доступ к папке)
 - GOOGLE_APPLICATION_CREDENTIALS — абсолютный путь к файлу drive_sa.json.
 Пример в .env:
 GOOGLE_APPLICATION_CREDENTIALS="/opt/airflow/secrets/drive_sa.json"
