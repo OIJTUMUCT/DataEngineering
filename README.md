@@ -53,6 +53,25 @@ make local-upload
 make local-test-all
 ```
 
+Сборка и запуск контейнеров (фоновый)
+```
+docker-compose up --build -d
+```
+
+Запуск контейнеров (фоновый)
+```
+make up
+```
+Доступ к web-интерфейсам (логин:пароль - admin:admin):
+- Airflow Web UI: ```http://localhost:8080```
+- Prometheus: ```http://localhost:3000```
+- Grafana: ```http://localhost:3000```
+
+Остановка и удаление контейнеров
+```
+make down
+```
+
 [Подробнее о makefile-командах](#makefile-команды)
 
 ##  Архитектура пайплайна
@@ -178,4 +197,3 @@ make local-test-all
 - Обучение
 - Оценка
 - Выгрузка
-
