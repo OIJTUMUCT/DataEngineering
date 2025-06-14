@@ -64,7 +64,7 @@ make up
 ```
 Доступ к web-интерфейсам (логин:пароль - admin:admin):
 - Airflow Web UI: ```http://localhost:8080```
-- Prometheus: ```http://localhost:3000```
+- Prometheus: ```http://localhost:9090```
 - Grafana: ```http://localhost:3000```
 
 Остановка и удаление контейнеров
