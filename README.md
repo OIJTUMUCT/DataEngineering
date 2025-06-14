@@ -48,6 +48,10 @@ GOOGLE_APPLICATION_CREDENTIALS="/opt/airflow/secrets/drive_sa.json"
 - Загружает в неё model.joblib и metrics.json
 - Логирует результат с помощью utils/logger.py
 
+### Результат
+https://drive.google.com/drive/folders/1dN_kiXEhOI4ilksON24Azc7b3--pUlgH?usp=sharing
+<img width="1440" alt="image" src="https://github.com/user-attachments/assets/81261a65-23f4-42da-9594-03c75508e449" />
+
 ---
 
 ## Prometeus
