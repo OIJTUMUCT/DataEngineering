@@ -26,6 +26,34 @@ GOOGLE_APPLICATION_CREDENTIALS=/opt/airflow/secrets/credentials.json
 # ID папки Google Drive, куда выгружаются артефакты модели (замените на собственный)
 GDRIVE_FOLDER_ID=1dN_kiXE90a94alksON24793773--plkad
 ```
+Для тестирования/проверки etl-py-файлов можно использовать makefile-команды:
+```
+make install-requirements
+```
+Устанавливает необходимые зависимости в активную виртуальную среду (.venv, miniconda)
+
+Далее можете воспользоваться командами для запуска кокретного скрипта:
+```
+make local-load
+```
+```
+make local-preprocess
+```
+```
+make local-train
+```
+```
+make local-evaluate
+```
+```
+make local-upload
+```
+Запуск всех скриптов:
+```
+make local-test-all
+```
+
+[Подробнее о makefile-командах](#makefile-команды)
 
 ##  Архитектура пайплайна
 
