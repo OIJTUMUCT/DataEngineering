@@ -17,11 +17,14 @@ down:
 	docker-compose down
 	@echo "Контейнеры остановлены"
 
+reduild:
+	docker-compose up --build -d
+
 dag-start:
-docker-compose exec airflow-webserver airflow dags trigger medical_etl_pipeline
+	docker-compose exec airflow-webserver airflow dags trigger medical_etl_pipeline
 
 dag-task-list:
-docker-compose exec airflow-webserver airflow tasks list medical_etl_pipeline
+	docker-compose exec airflow-webserver airflow tasks list medical_etl_pipeline
 
 logs:
 	docker-compose logs --tail=100 -f
