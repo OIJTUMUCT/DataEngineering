@@ -93,8 +93,8 @@ graph TD
     B --> C[preprocess.py]
     C --> D[train_model.py]
     D --> E[evaluate.py]
-    E --> F[]
-    F --> G(upload_results.py)
+    E --> F[upload_results.py]
+    F --> G(success_end)
     B --> H(failure_end)
     C --> H
     D --> H
