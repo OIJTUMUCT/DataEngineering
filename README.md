@@ -123,8 +123,11 @@ schedule_interval="@once"
 | [upload_results.py](airflow/etl/results.py) | Загружает результаты (модель + метрики) в Google Drive и локально |
 
 ## Airflow Web UI (скриншоты)
+Работающий даг
 <img width="1708" alt="image" src="https://github.com/user-attachments/assets/87f01f37-7857-4528-8aac-a6ba9b8d8d99" />
+Граф пайплайна
 <img width="1294" alt="image" src="https://github.com/user-attachments/assets/4cafde7a-a59d-48b5-a396-cef08d8fe214" />
+Логгирование также прокинуто в Web-интерфейс
 <img width="1707" alt="image" src="https://github.com/user-attachments/assets/455d4b14-8076-4df6-a781-080f13e356ee" />
 
 ## Анализ ошибок и устойчивости (Robustness)
