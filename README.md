@@ -56,17 +56,23 @@ make local-test-all
 
 Сборка и запуск контейнеров (фоновый)
 ```
-docker-compose up --build -d
+make rebuild
 ```
 
 Запуск контейнеров (фоновый)
 ```
 make up
 ```
+
 Доступ к web-интерфейсам (логин:пароль - admin:admin):
 - Airflow Web UI: ```http://localhost:8080```
 - Prometheus: ```http://localhost:9090```
 - Grafana: ```http://localhost:3000```
+
+Запуск дага через CLI (makefile-команда)
+```
+make dag-start
+```
 
 Остановка и удаление контейнеров
 ```
