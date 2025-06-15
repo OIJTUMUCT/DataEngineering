@@ -29,6 +29,48 @@
 | Mitoses | Количество митозов (делений клеток) |
 | Class | Целевая переменная: 0 — доброкачественная, 1 — злокачественная |
 
+## Навигация по проекту
+
+### Основные компоненты
+| Путь | Назначение |
+|-------------------|-------------------------------------------------------------------------------|
+| [airflow/dags/pipeline_dag.py](airflow/dags/pipeline_dag.py) | DAG-файл, описывающий структуру ETL-пайплайна |
+| [airflow/etl/load_data.py](airflow/etl/load_data.py) | Загрузка данных из открытого источника  |
+| [airflow/etl/preprocess.py](airflow/etl/preprocess.py) | Предобработка и валидация данных (в т.ч. Pandera) |
+| [airflow/etl/train_model.py](airflow/etl/train_model.py) | Обучение модели LogisticRegression |
+| [airflow/etl/evaluate.py](airflow/etl/evaluate.py) | Оценка метрик модели (accuracy, f1_score и др.) |
+| [airflow/etl/results.py](airflow/etl/results.py) | Выгрузка результатов в Google Drive |
+
+### Вспомогательные модули
+| Путь | Назначение |
+|-------------------|-------------------------------------------------------------------------------|
+| [airflow/utils/logger.py](airflow/utils/logger.py) | DAG-файл, описывающий структуру ETL-пайплайна |
+| [test/requirements.txt](test/requirements.txt) | Загрузка данных из открытого источника  |
+| [airflow/etl/preprocess.py](airflow/etl/preprocess.py) | Предобработка и валидация данных (в т.ч. Pandera) |
+| [Makefile](Makefile) | Упрощённый запуск этапов пайплайна |
+| .env | Хранение переменных окружения (например, GDRIVE_FOLDER_ID) - необходимо создать |
+
+### Docker и конфигурация
+| Путь | Назначение |
+|-------------------|----------------------------------------------------------------------|
+| [docker-compose.yml](docker-compose.yml) | Инфраструктура проекта: Airflow, Postgres, Prometheus, Grafana |
+| [airflow/airflow.Dockerfile](airflow/airflow.Dockerfile) | Образ для Airflow  |
+| [airflow/entrypoint.sh](airflow/entrypoint.sh) | Стартовый скрипт контейнера |
+| [prometheus/prometheus.yml](prometheus/prometheus.yml) | Настройка мониторинга |
+| postgres/conf/postgres.conf | Конфигурация PostgreSQL |
+
+### Данные и результаты
+| Путь | Назначение |
+|-------------------|----------------------------------------------------------------------|
+| [airflow/data/](airflow/data/) | Сырые и предобработанные данные |
+| [airflow/results/](airflow/results/) | Сохранённая модель и метрики  |
+| [airflow/uploaded/](airflow/uploaded/) | Локальные копии выгрузок на Google Drive |
+
+### Секреты и доступ
+| Путь | Назначение |
+|-------------------|-------------------------------------------------------------------------------------------------------------------------|
+| [secrets/](secrets/) | Сервисный аккаунт Google Drive (drive_sa.json) и дополнительные ключи (credentials.json) - необходимо добавить |
+
 ## Для начала работы
 После копирования репозитория, создайте файл .env в корне проекта и заполните его в соотвествии с шаблоном:
 ```env
