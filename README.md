@@ -2,12 +2,13 @@
 
 ## Цель проекта
 Разработать и автоматизировать ETL-процесс для построения модели машинного обучения, диагностирующей рак молочной железы, с использованием Apache Airflow и Python.
+Модель классифицирует опухоли как доброкачественные (0) или злокачественные (1) на основании биометрических признаков.
 
 ## Описание данных
 - Источник: Breast Cancer Wisconsin Diagnostic Dataset
 - Формат: CSV
 - Ссылка: https://raw.githubusercontent.com/selva86/datasets/master/BreastCancer.csv
-- Целевая переменная: Class (доброкачественная / злокачественная опухоль)
+- Целевая переменная: Class (0 - доброкачественная / 1 - злокачественная опухоль)
 
 ## Для начала работы
 После копирования репозитория, создайте файл .env в корне проекта и заполните его в соотвествии с шаблоном:
@@ -75,10 +76,21 @@ make down
 [Подробнее о makefile-командах](#makefile-команды)
 
 ##  Архитектура пайплайна
-!
-
+```mermaid
+graph TD
+    A[load_data.py] --> B[preprocess.py]
+    B --> C[train_model.py]
+    C --> D[evaluate.py]
+    D --> E[upload_results.py]
+```
 ## Описание компонентов
-!
+| Компонент | Описание |
+|-------------------|-------------------------------------------------------------------------------|
+| load_data.py | Загружает CSV-файл с медицинскими данными и сохраняет в локальный каталог |
+| preprocess.py | Выполняет очистку данных, стандартизацию и разбивку на train/test |
+| train_model.py | Обучает логистическую регрессию и сохраняет модель |
+| evaluate.py | Вычисляет метрики классификации и сохраняет в JSON |
+| upload_results.py | Загружает результаты (модель + метрики) в Google Drive и локально |
 
 ## Анализ Robustness
 !
@@ -125,16 +137,20 @@ https://drive.google.com/drive/folders/1dN_kiXEhOI4ilksON24Azc7b3--pUlgH?usp=sha
 
 ---
 
-## Prometheus
-<img width="1719" alt="image" src="https://github.com/user-attachments/assets/e4da1917-8f11-495f-bb69-c0cde472be40" />
-
-## Grafana
-<img width="1728" alt="image" src="https://github.com/user-attachments/assets/b67f8fca-f34c-4a8a-963c-94b3ca5dba7d" />
-
 ## Airflow
 <img width="1708" alt="image" src="https://github.com/user-attachments/assets/87f01f37-7857-4528-8aac-a6ba9b8d8d99" />
 <img width="1294" alt="image" src="https://github.com/user-attachments/assets/4cafde7a-a59d-48b5-a396-cef08d8fe214" />
 <img width="1707" alt="image" src="https://github.com/user-attachments/assets/455d4b14-8076-4df6-a781-080f13e356ee" />
+
+## Prometheus
+Система мониторинга и сбора метрик, которая опрашивает сервисы (включая Airflow) и собирает числовые данные (время ответа, число задач, загрузка CPU и др.), чтобы потом анализировать их или визуализировать через Grafana.
+<img width="1719" alt="image" src="https://github.com/user-attachments/assets/e4da1917-8f11-495f-bb69-c0cde472be40" />
+
+## Grafana
+Grafana подключается к Prometheus и позволяет наблюдать за состоянием ETL-пайплайна:
+- Сколько DAG-ов завершились успешно/с ошибкой
+- Состояние scheduler`a
+<img width="1728" alt="image" src="https://github.com/user-attachments/assets/b67f8fca-f34c-4a8a-963c-94b3ca5dba7d" />
 
 ## Makefile команды
 ### Установка зависимостей
