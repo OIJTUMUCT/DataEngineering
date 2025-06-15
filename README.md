@@ -141,18 +141,20 @@ schedule_interval="@once"
 ### Где может «упасть» процесс?
 | Этап | Возможные сбои |
 |-------------------|-------------------------------------------------------------------------------|
-| load_data.py | Сбой соединения с URL-источником или неверный путь |
-| preprocess.py | Обнаружение пропусков или структурных ошибок в колонках |
-| train_model.py | Ошибки во входных данных, переобучение, несовместимость модели |
-| evaluate.py | Отсутствие модели или разметки, деление на 0 |
-| upload_results.py | Ошибка авторизации, недоступность Google Drive API |
+| load_data.py | ConnectionError, HTTPError, TimeoutError, pandas.errors.ParserError при чтении CSV |
+| preprocess.py | FileNotFoundError, SchemaError (Pandera), ValueError — пустой датасет, NaN после drop |
+| train_model.py | joblib.load: ошибка загрузки данных, ValueError при fit, если метки однотипны |
+| evaluate.py | FileNotFoundError: нет модели, joblib.load, predict, несовпадение формата |
+| upload_results.py | PermissionError при чтении токена, HttpError Google API, FileNotFoundError по результатам |
 
 ### Какие исключения могут возникнуть?
-- ConnectionError, TimeoutError при загрузке данных
-- ValueError при валидации схемы (pandera)
-- FileNotFoundError при отсутствии файла модели
-- PermissionError при работе с Google API без валидного токена
-- TypeError или ZeroDivisionError при расчёте метрик
+| Исключение | Этап | Причина |
+|-------------------|----------------------------|--------------------------------------------------|
+| ConnectionError | load_data | Недоступен URL, проблемы с сетью |
+| FileNotFoundError | preprocess, evaluate, upload | Отсутствует raw.csv, model.joblib, metrics.json |
+| ValueError | train_model, preprocess | Ошибка входных данных (NaN, inf, некорректные значения) |
+| pa.errors.SchemaError | preprocess | Данные не проходят схему валидации |
+| googleapiclient.errors.HttpError | upload_results | Ошибки при взаимодействии с Google Drive API |
 
 ### Что происходит при сбое?
 - Используются retries и retry_delay в большинстве задач, что обеспечивает автоматическую повторную попытку выполнения.
